@@ -14,8 +14,18 @@ std::string IndiceSec::getReferencia(const int & pos){
     return referencia[pos];
 }
 
-void IndiceSec::setReferencia(const std::string &data, const int &pos){
+void IndiceSec::setReferenciasInit(const std::string &data, const int& pos){
     referencia[pos] = data;
+}
+
+void IndiceSec::setReferencia(const std::string &data, int pos){
+    for(int i(0); i < 5; i++){
+        if(referencia[pos] == "0"){
+            referencia[pos] = data;
+            break;
+        }
+        pos++;
+    }
 }
 
 void IndiceSec::save(std::fstream &out){
@@ -48,16 +58,43 @@ void IndiceSec::load(std::fstream &in){
     }
 }
 
-int IndiceSec::getCLSID() const
-{
+int IndiceSec::getCLSID() const{
     return CLSID_SECONDARY_INDEX;
 }
+
+void IndiceSec::sortReferencias(){
+    int i(4), j;
+    bool flag;
+    do{
+        flag = false;
+        j = 0;
+
+        while(j < i){
+            if (referencia[j] > referencia[j+1]){
+
+                //Intercambiar
+                referencia[j].swap(referencia[j+1]);
+                flag = true;
+            }
+            j++;
+        }
+        i--;
+    }while(flag);
+}
+
+void IndiceSec::swapReferencias(std::string& r1, std::string& r2){
+    std::string auxR;
+    auxR = r1;
+    r1 = r2;
+    r2 = auxR;
+}
+
+
 
 IndiceSec::IndiceSec(){
 
 }
 
-IndiceSec::~IndiceSec()
-{
+IndiceSec::~IndiceSec(){
 
 }

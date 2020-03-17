@@ -24,6 +24,7 @@ private:
 
 public:
     Project();
+    Project(const std::string& ss);
     virtual ~Project();
 
     //Encapsulamiento de datos para evitar anomalias directas en los atributos de cada proyecto
@@ -39,7 +40,9 @@ public:
     float getEconomicAmount()const;
     void setResponsible(const std::string&);
     std::string getResponsible();
+
     std::string toFile();
+    void print();
 
     //Sobrecarga de operadores de entrada y salida, para poder hacer cada proyecto flujeable
     void save(std::fstream&out);

@@ -4,6 +4,21 @@ Project::Project(){
     //ctor
 }
 
+Project::Project(const string& ss){
+    char FIELD_DELIMITER = '♣';
+    stringstream auxSS;
+    auxSS << ss;
+    string auxStr;
+
+    getline(auxSS, folio, FIELD_DELIMITER);
+    getline(auxSS, name, FIELD_DELIMITER);
+    getline(auxSS, area, FIELD_DELIMITER);
+    getline(auxSS, speciality, FIELD_DELIMITER);
+    getline(auxSS, auxStr, FIELD_DELIMITER);
+    economicAmount = stof(auxStr);
+    getline(auxSS, responsible, FIELD_DELIMITER);
+}
+
 Project::~Project(){
     //dtor
 }
@@ -59,12 +74,27 @@ string Project::getResponsible(){
 
 string Project::toFile(){
     string ss;
+    //El delimitador pesa 3 bytes
     ss = folio + "♣" + name + "♣" + area + "♣"
             + speciality + "♣" +
             to_string(economicAmount) + "♣" + responsible + "♣";
     return ss;
 }
 
+void Project::print(){
+    //folio.pop_front();
+    folio.pop_back();
+    name.pop_back();
+    area.pop_back();
+    responsible.pop_back();
+    speciality.pop_back();
+    cout<<"Folio: "<<folio<<endl
+        <<"Nombre: "<<name<<endl
+        <<"Area: "<<area<<endl
+        <<"Especialidad: "<<speciality<<endl
+        <<"Monto Economico: "<<to_string(economicAmount)<<endl
+        <<"Responsable: "<<responsible<<endl;
+}
 
 void Project::save(std::fstream& out){
 
@@ -88,34 +118,10 @@ int Project::getCLSID()const{
     return 0;
 }
 
-
-/*istream& operator >> (istream& input, Project& project){
-    Cuando algo sale de un archivo, sale en forma de string, por ello
-        se crea auxStr, que recibirá atributo tras atributo, hasta el delimitador.
-        Metiendo esos atributos a un objeto de la clase Project
-    string auxStr;
-    //Se requiere de tener un character auxiliar para almacenar el delimitador, para que el getline lo pueda leer
-    const char FIELD_DELIMITER = '♣';
-
-    getline(input, auxStr, FIELD_DELIMITER);
-    if(auxStr.size() > 0){
-        project.setFolio(auxStr);
-        getline(input, auxStr, FIELD_DELIMITER);
-        project.setName(auxStr);
-        getline(input, auxStr, FIELD_DELIMITER);
-        project.setArea(auxStr);
-        getline(input, auxStr, FIELD_DELIMITER);
-        project.setSpeciality(auxStr);
-        getline(input, auxStr, FIELD_DELIMITER);
-        project.setEconomicAmount(stof(auxStr)); //Convertir a flotante antes de pasarlo
-        getline(input, auxStr, FIELD_DELIMITER);
-        project.setResponsible(auxStr);
-    }
-    return input;
-}*/
 void Project::load(std::fstream& in){
 
 }
+
 
 
 

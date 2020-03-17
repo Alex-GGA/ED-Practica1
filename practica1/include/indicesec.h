@@ -14,7 +14,12 @@ public:
     void setPrimaryKey(const std::string &value);
 
     std::string getReferencia(const int& pos);
-    void setReferencia(const std::string&, const int&);
+
+    void setReferenciasInit(const std::string&, const int&);
+    void setReferencia(const std::string&,int);
+
+    void sortReferencias();
+    void swapReferencias(std::string&, std::string&);
 
     void save(std::fstream & out);
     void load(std::fstream & in);

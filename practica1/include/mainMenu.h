@@ -6,11 +6,14 @@
 #include <time.h>
 #include <fstream>
 #include <sstream>
+
 #include "project.h"
 #include "indiceprimario.h"
 #include "cList.h"
 #include "cIterator.h"
 #include "indicesec.h"
+
+#define DEFAULT_POS 0
 //Clase principal que cargará y mostrará todos los proyectos que sean añadidos
 class MainMenu{
 
@@ -45,6 +48,7 @@ private:
     void insertNewProject();
     void showProjectsByFolio();
     void showProjectsByArea();
+    void readByPrimaryIndex(const CIterator&);
 
     std::string Folio(std::string &nombre);
 

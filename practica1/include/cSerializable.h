@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
 #define CLSID_PRIMARY_INDEX 420
 #define CLSID_SECONDARY_INDEX 840
