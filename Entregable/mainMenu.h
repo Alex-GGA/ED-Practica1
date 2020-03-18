@@ -71,6 +71,8 @@ private:
                            "AREA V: CIENCIAS SOCIALES",
                            "AREA VI: BIOTECNOOGIA Y CIENCIAS AGROPECUARIAS",
                            "AREA VII: INGENIERIAS"};
+
+    void saveIndex();
 public:
     MainMenu();
     virtual ~MainMenu();

@@ -42,21 +42,7 @@ MainMenu::MainMenu() : counter(0) {
 }
 
 MainMenu::~MainMenu(){
-    //Ordenamiento final, solo para asegurar de que guardara el archivo ordenado con forme a la llave primaria
-    indicePrimarioL.sortList(false);
-    //Guarda en el archivo el indice primario
-    fstream archivoIndiceP(filePrimaryIndex, fstream::out);
-    //Identificador para indicarle a la lista que al momento de cargar, cargara un indice primario
-    archivoIndiceP << CLSID_PRIMARY_INDEX<<endl;
-    //manda a llamar su propio metodo para guardar
-    indicePrimarioL.save(archivoIndiceP);
-    archivoIndiceP.close();
-    //Guarda en su respectivo archivo, el indice secundario
-    fstream fSecondaryIndex(fileSecondaryIndex, fstream::out);
-    //Identificador para indicarle a la lista que al momento de cargar, cargara un indice secundario
-    fSecondaryIndex << CLSID_SECONDARY_INDEX<<endl;
-    indiceSecundario.save(fSecondaryIndex);
-    fSecondaryIndex.close();
+    saveIndex();
 }
 
 void MainMenu::menu(){
@@ -87,6 +73,7 @@ void MainMenu::menu(){
         default:
             cout<<"Opcion errada, favor de elegir una de las mostradas en el menu"<<endl;
         }
+        saveIndex();
         system("pause");
         system("clear||cls");
     }while(option != EXIT);
@@ -316,6 +303,25 @@ void MainMenu::readByPrimaryIndex(const CIterator& auxIt){
     //Imprime sus datos
     auxProject.print();
     lecturaIndice.close();
+}
+
+
+void MainMenu::saveIndex(){
+    //Ordenamiento final, solo para asegurar de que guardara el archivo ordenado con forme a la llave primaria
+    indicePrimarioL.sortList(false);
+    //Guarda en el archivo el indice primario
+    fstream archivoIndiceP(filePrimaryIndex, fstream::out);
+    //Identificador para indicarle a la lista que al momento de cargar, cargara un indice primario
+    archivoIndiceP << CLSID_PRIMARY_INDEX<<endl;
+    //manda a llamar su propio metodo para guardar
+    indicePrimarioL.save(archivoIndiceP);
+    archivoIndiceP.close();
+    //Guarda en su respectivo archivo, el indice secundario
+    fstream fSecondaryIndex(fileSecondaryIndex, fstream::out);
+    //Identificador para indicarle a la lista que al momento de cargar, cargara un indice secundario
+    fSecondaryIndex << CLSID_SECONDARY_INDEX<<endl;
+    indiceSecundario.save(fSecondaryIndex);
+    fSecondaryIndex.close();
 }
 
 
