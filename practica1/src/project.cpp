@@ -88,6 +88,9 @@ void Project::print(){
     area.pop_back();
     responsible.pop_back();
     speciality.pop_back();
+    if(folio[0] == '\n'){
+        folio[0] = ' ';
+    }
     cout<<"Folio: "<<folio<<endl
         <<"Nombre: "<<name<<endl
         <<"Area: "<<area<<endl

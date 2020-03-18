@@ -80,6 +80,24 @@ void IndiceSec::sortReferencias(){
         }
         i--;
     }while(flag);
+
+    i = 4;
+    std::string auxStr;
+    do{
+        flag = false;
+        j = 0;
+
+        while(j < i){
+            if (referencia[j] == "0"){
+                auxStr = referencia[j];
+                referencia[j] = referencia[j+1];
+                referencia[j+1] = auxStr;
+                flag = true;
+            }
+            j++;
+        }
+        i--;
+    }while(flag);
 }
 
 void IndiceSec::swapReferencias(std::string& r1, std::string& r2){

@@ -4,12 +4,10 @@
 using namespace std;
 
 
-int main()
-{
+int main(){
+    /*El programa se inicia a traves de un objeto creado desde MainMenu*/
     MainMenu main;
-
     main.menu();
-    cout << "exito" << endl;
 
     return 0;
 }

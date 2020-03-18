@@ -2,3 +2,5 @@ egs-72♣egsegse♣AREA III: CIENCIAS MEDICAS Y DE LA SALUD♣segvsgsr♣3♣efs
 esg-11♣esgrdhdr♣AREA II: BIOLOGIA Y QUIMICA♣sgrrdbdr♣4♣sgsrbrs♣
 seg-31♣segesgse♣AREA II: BIOLOGIA Y QUIMICA♣wetwetret♣43♣rgdrdr♣
 grd-64♣grdrbd♣AREA II: BIOLOGIA Y QUIMICA♣ewtwetwe♣3♣sgsrgbsr♣
+awf-75♣awfawfa♣AREA III: CIENCIAS MEDICAS Y DE LA SALUD♣avaefae♣32♣segses♣
+age-33♣ageageva♣AREA III: CIENCIAS MEDICAS Y DE LA SALUD♣segsebse♣43♣sebsebse♣

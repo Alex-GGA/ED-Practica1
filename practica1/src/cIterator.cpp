@@ -55,7 +55,6 @@ CSerializable *CIterator::getNext(){
     return this->pCurrent->pNext->data;
 }
 
-
 void CIterator::operator++(){
     this->pCurrent = pCurrent->pNext;
 }

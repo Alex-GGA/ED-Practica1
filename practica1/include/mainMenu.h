@@ -18,6 +18,7 @@
 class MainMenu{
 
 private:
+    //Constantes definidas para los archivos usados
     const std::string filePrimaryIndex = "INDICE PRIMARIO.txt";
     const std::string fileSecondaryIndex = "INDICE SECUNDARIO.txt";
     const std::string fileData = "DATOS.txt";
@@ -50,12 +51,19 @@ private:
     void showProjectsByArea();
     void readByPrimaryIndex(const CIterator&);
 
+    //Método generador del folio
     std::string Folio(std::string &nombre);
 
+    //Los indices
     CList indicePrimarioL;
     CList indiceSecundario;
-    int counter;
 
+    //Contador para saber las posiciones de cada proyecto
+    int counter;
+    //Guarda cada proyecto en el archivo de "DATOS.TXT"
+    void GuardarProyecto(Project &nuevo_proyecto, IndicePrimario &newIndice);
+
+    //Areas del proyecto
     std::string areas[7] = {"AREA I: FISICO MATEMATICAS Y CIENCIAS DE LA TIERRA",
                             "AREA II: BIOLOGIA Y QUIMICA",
                             "AREA III: CIENCIAS MEDICAS Y DE LA SALUD",
@@ -64,7 +72,6 @@ private:
                            "AREA VI: BIOTECNOOGIA Y CIENCIAS AGROPECUARIAS",
                            "AREA VII: INGENIERIAS"};
 public:
-    void GuardarProyecto(Project &nuevo_proyecto, IndicePrimario &newIndice);
     MainMenu();
     virtual ~MainMenu();
 

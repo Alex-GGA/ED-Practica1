@@ -53,19 +53,35 @@ void CList::sortList(const bool& flag){
     CIterator it2;
     IndicePrimario* auxData;
     it1 = beginList();
+    if(!flag){
+        while(it1 != endList()){
+            auxData = (IndicePrimario*)it1.pCurrent->data;
+            it2 = it1;
+            while(it2 != beginList() &&
+                  auxData->getPrimaryKey() < ((IndicePrimario*)(it2.getPrev()))->getPrimaryKey()){
+                it2.pCurrent->data = it2.getPrev();
+                --it2;
+            }
+            if(it1 != it2){
+                it2.pCurrent->data = (CSerializable*)auxData;
+            }
+            ++it1;
+        }
+    }else{
+        while(it1 != endList()){
+            auxData = (IndicePrimario*)it1.pCurrent->data;
+            it2 = it1;
+            while(it2 != beginList() &&
+                  auxData->getDireccionBytes() < ((IndicePrimario*)(it2.getPrev()))->getDireccionBytes()){
+                it2.pCurrent->data = it2.getPrev();
+                --it2;
+            }
+            if(it1 != it2){
+                it2.pCurrent->data = (CSerializable*)auxData;
+            }
+            ++it1;
+        }
 
-    while(it1 != endList()){
-        auxData = (IndicePrimario*)it1.pCurrent->data;
-        it2 = it1;
-        while(it2 != beginList() &&
-              auxData->getPrimaryKey() < ((IndicePrimario*)(it2.getPrev()))->getPrimaryKey()){
-            it2.pCurrent->data = it2.getPrev();
-            --it2;
-        }
-        if(it1 != it2){
-            it2.pCurrent->data = (CSerializable*)auxData;
-        }
-        ++it1;
     }
 
 }
