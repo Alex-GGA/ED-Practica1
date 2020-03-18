@@ -4,12 +4,13 @@ Project::Project(){
     //ctor
 }
 
+//Constructor para poder almacenar en cada campo del proyecto, lo que provenga de un string
 Project::Project(const string& ss){
     char FIELD_DELIMITER = '♣';
     stringstream auxSS;
     auxSS << ss;
     string auxStr;
-
+    //Se leen lineas hasta el delimitador y se almacenan en cada campo respectivo desde un stringstream
     getline(auxSS, folio, FIELD_DELIMITER);
     getline(auxSS, name, FIELD_DELIMITER);
     getline(auxSS, area, FIELD_DELIMITER);
@@ -23,6 +24,7 @@ Project::~Project(){
     //dtor
 }
 
+//Getters y Setters de cada campo del proyecto
 void Project::setFolio(const string& auxFolio){
     folio = auxFolio;
 }
@@ -72,6 +74,7 @@ string Project::getResponsible(){
     return responsible;
 }
 
+//Devuelve una cadena de los datos del proyecto, incluyendo el delimitador
 string Project::toFile(){
     string ss;
     //El delimitador pesa 3 bytes
@@ -81,13 +84,17 @@ string Project::toFile(){
     return ss;
 }
 
+//Imprime el proyecto sacando cada campo
 void Project::print(){
-    //folio.pop_front();
-    folio.pop_back();
-    name.pop_back();
-    area.pop_back();
-    responsible.pop_back();
-    speciality.pop_back();
+    for(int i(0); i < 2; i++){
+        //Elimina la basura generada del delimitador
+        folio.pop_back();
+        name.pop_back();
+        area.pop_back();
+        responsible.pop_back();
+        speciality.pop_back();
+    }
+    //Añade estetica a la impresion
     if(folio[0] == '\n'){
         folio[0] = ' ';
     }

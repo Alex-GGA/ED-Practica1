@@ -55,6 +55,8 @@ CSerializable *CIterator::getNext(){
     return this->pCurrent->pNext->data;
 }
 
+
+///Operadores que sustituyen todos los metodos del iterador
 void CIterator::operator++(){
     this->pCurrent = pCurrent->pNext;
 }

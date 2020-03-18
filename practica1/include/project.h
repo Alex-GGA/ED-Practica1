@@ -41,7 +41,9 @@ public:
     void setResponsible(const std::string&);
     std::string getResponsible();
 
+    //Devuelve una cadena con todo y delimitadores
     std::string toFile();
+    //Muestra el proyecto
     void print();
 
     //Sobrecarga de operadores de entrada y salida, para poder hacer cada proyecto flujeable

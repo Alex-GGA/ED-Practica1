@@ -14,17 +14,19 @@ public:
     CIterator();
     virtual ~CIterator();
 
-    void advance();
-    void toBackUp();
-    void initialize(const CIterator &);
-    bool isEqual(const CIterator &);
-    CSerializable* readContent()const;
-    void insertFront(CSerializable* data);
-    CSerializable* deleteThisData()const;
-    void modifyContent(CSerializable* data);
-    CSerializable *getPrev();
-    CSerializable* getNext();
 
+    void advance(); //Coloca el iterador en la siugiente posicion
+    void toBackUp(); //En la anterior posicion
+    void initialize(const CIterator &); //Inicializa el iterador
+    bool isEqual(const CIterator &); //Verifica si es igual a otro iterador
+    CSerializable* readContent()const; //Recupera el contenido del iterador
+    void insertFront(CSerializable* data); //Insera en la lista usando el iterador
+    CSerializable* deleteThisData()const; //Elimina un dato en donde esta el iterador
+    void modifyContent(CSerializable* data); //Permite modificar el dato del iterador
+    CSerializable *getPrev(); //Recupera la posicion anterior
+    CSerializable* getNext(); //Recupera la posicion siguiente
+
+    //Sobre carga de operadores para el funcionamiento del iterador
     void operator ++();
     void operator --();
     void operator = (const CIterator& ciAuxIt);

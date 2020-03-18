@@ -9,10 +9,11 @@ private:
     friend class CList;
     friend class CIterator;
 
+    //Punteros a nodo, para usar la doble ligadura
     CNode* pNext;
     CNode* pPrev;
     CSerializable* data;
-
+    //Métodos implementados en CNode.cpp
     void insertFront(CSerializable* data);
     CSerializable* deleteNext();
 

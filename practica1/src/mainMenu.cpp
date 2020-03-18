@@ -124,8 +124,13 @@ void MainMenu::insertNewProject(){
          <<AREA_VII<<") AREA VII: INGENIERIAS" <<endl
          <<"  Opcion: ";
     cin >> opcion;
-
-    newProject.setArea(areas[opcion]); //Accede a un elemento del arreglo areas y lo establece
+    if(opcion < 0 || opcion > 6){
+        cout<<"Area invalida..."<<endl
+            <<"SE ESTABLECERA EL AREA VII"<<endl;
+        newProject.setArea(areas[6]);
+    }else{
+        newProject.setArea(areas[opcion]); //Accede a un elemento del arreglo areas y lo establece
+    }
     cin.ignore();
 
     cout <<endl<< " Especialidad: ";
@@ -215,7 +220,7 @@ void MainMenu::showProjectsByArea(){
     CIterator it;
 
     cout<<"\t\t---INDICE SECUNDARIO---"<<endl;
-    //Por medio de un iterador
+    //Por medio de un iterador muestra las llaves primarias del indice secundario
     for(it = indiceSecundario.beginList(); it != indiceSecundario.endList();++it, ++i){
         cout<<i<<") "<<((IndiceSec*)(it.readContent()))->getPrimaryKey()<<endl;
     }
@@ -228,14 +233,16 @@ void MainMenu::showProjectsByArea(){
         cout<<"Proyecto no encontrado..."<<endl;
     }else{
         cout<<"Proyectos del: "<<areas[option-1]<<": "<<endl<<endl;
+        //Coloca el iterador en la opcion
         it = indiceSecundario.beginList();
         for(int j(1); j < option; ++j){
             ++it;
         }
-
+        //Se mueve por todas las refencias de la opcions eleccionada
         for(int k(0); k < 5; k++){
-
+            //De cada referencia saca un proyecto, conectando el indice secundario con el indice primario
             for(CIterator it2 = indicePrimarioL.beginList(); it2 != indicePrimarioL.endList();++it2){
+                //En caso de encontrar, saca un proyecto
                 if(((IndiceSec*)(it.readContent()))->getReferencia(k)
                    == ((IndicePrimario*)(it2.readContent()))->getPrimaryKey()){
                         cout<<"Proyecto No. "<<k+1<<endl;
@@ -247,21 +254,21 @@ void MainMenu::showProjectsByArea(){
     }
 }
 
-string MainMenu::Folio(string &nombre)
-{
+string MainMenu::Folio(string &nombre){
     stringstream folio_generado;
     srand(time(NULL));
-    int num1 = rand()%100;
+    int num1 = rand()%100; //Genera un numero aleatorio de 0 - 99
     for (int i = 0; i <= 2; i++){
-        folio_generado << nombre[i];
+        folio_generado << nombre[i]; //Toma las tres primeras letras del nombre del proyecto
     }
-    folio_generado << '-' << num1;
+    folio_generado << '-' << num1; //Concatena el guion seguido del numero generado
     return folio_generado.str();
 }
 
-void MainMenu::GuardarProyecto(Project &nuevo_proyecto,IndicePrimario &newIndice)
-{
+void MainMenu::GuardarProyecto(Project &nuevo_proyecto,IndicePrimario &newIndice){
+    //Abre un archivo en modo app, para agregar un nuevo proyecto al final del archivo
     fstream archivo_proyecto(fileData,fstream::app);
+    //Llama a su metodo para guardar
     nuevo_proyecto.save(archivo_proyecto);
     archivo_proyecto.close();
 }
@@ -272,28 +279,41 @@ void MainMenu::readByPrimaryIndex(const CIterator& auxIt){
     CIterator it;
     it = auxIt;
     int pesoBytes(0);
+    //Solo abre el archivo de los datos
     lecturaIndice.open(fileData);
+
+    //Ordena la lista de manera ascendete con forme a las direcciones
     indicePrimarioL.sortList(true);
 
+    //Si estamos en el ultimo elementod e la lista, solo va a restar el contador a la direccion del elemento buscado
     if(it.getNext() == indicePrimarioL.endList().readContent()){
         pesoBytes = counter - ((IndicePrimario*)(it.readContent()))->getDireccionBytes();
 
     }else{
+        //Si estamos en cualquier otra posicion, se resta la direccion del siguiente a la direccion actual
         pesoBytes = ((IndicePrimario*)(it.getNext()))->getDireccionBytes()
                         - ((IndicePrimario*)(it.readContent()))->getDireccionBytes();
-    }
-    char* auxStr =  new char[pesoBytes];
+    } //Esto para poder saber el peso en bytes de cada proyecto a consultar
+
+    char* auxStr =  new char[pesoBytes]; //Cadena de caracteres para capturar el proyecto
     string auxStr2;
 
-    if(((IndicePrimario*)(it.readContent()))->getDireccionBytes() == 0){
+    //Verifica que el proyecto a buscar sea el primero
+    if(((IndicePrimario*)(it.readContent()))->getDireccionBytes() == DEFAULT_POS){
+            //Si es el primero, coloca el puntero en la direccion del proyecto buscado
         lecturaIndice.seekp(((IndicePrimario*)(it.readContent()))->getDireccionBytes());
     }else{
+        //SI no lo es, entonces Suma 1 a la direccion
         lecturaIndice.seekp(((IndicePrimario*)(it.readContent()))->getDireccionBytes()+1);
     }
-    lecturaIndice.read(auxStr, pesoBytes);
-    auxStr2 = auxStr;
-    Project auxProject(auxStr2);
 
+    //Lee desde el archivo, almacena en la cadena caracteres la cantidad de pesoBytes
+    lecturaIndice.read(auxStr, pesoBytes);
+    //Conviente la cadena de caracteres a una cadena normal
+    auxStr2 = auxStr;
+    //Crea un proyecto auxiliar para poder mostrar su contenido recuperado
+    Project auxProject(auxStr2);
+    //Imprime sus datos
     auxProject.print();
     lecturaIndice.close();
 }
