@@ -38,28 +38,28 @@ MainMenu::MainMenu() : counter(0) {
     /*indicePrimarioL.sortList(true);
     char* auxStr =  new char[pesoBytes]; //Cadena de caracteres para capturar el proyecto
     string auxStr2;*/
+    fstream lecturaInicial(fileData, fstream::in);
     for(primaryIndexIt = indicePrimarioL.beginList();
         primaryIndexIt != indicePrimarioL.endList();
         ++primaryIndexIt){
 
-            if(indicePrimarioL.sizeOfTheList() == 1){
+            if(indicePrimarioL.sizeOfTheList() < 3){
                 /* Si la lista solo tiene un elemento, se abre el archivo de datos y se
                 recupera el unico regustro para conseguir su longitud y asi poderla sumar
                 al contador y sumarle los bytes del salto de linea*/
-                fstream lecturaInicial(fileData, fstream::in);
                 string longOfTheFirstData;
                 getline(lecturaInicial, longOfTheFirstData);
                 counter += longOfTheFirstData.size() + NEWLINE_SIZE;
-                lecturaInicial.close();
 
             }else{
                 counter += ((IndicePrimario*)(primaryIndexIt.readContent()))->getDireccionBytes();
             }
 
         }
-    if(counter != DEFAULT_POS){
+    lecturaInicial.close();
+    /*if(counter != DEFAULT_POS){
         counter += NEWLINE_SIZE;
-    }
+    }*/
 }
 
 MainMenu::~MainMenu(){
