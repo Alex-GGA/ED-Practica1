@@ -10,7 +10,7 @@ Project::Project(const string& ss){
     stringstream auxSS;
     auxSS << ss;
     string auxStr;
-    cout<<"entra"<<endl;
+
     //Se leen lineas hasta el delimitador y se almacenan en cada campo respectivo desde un stringstream
     getline(auxSS, folio, FIELD_DELIMITER);
     getline(auxSS, name, FIELD_DELIMITER);
