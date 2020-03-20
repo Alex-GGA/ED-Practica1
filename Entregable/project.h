@@ -44,7 +44,7 @@ public:
     //Devuelve una cadena con todo y delimitadores
     std::string toFile();
     //Muestra el proyecto
-    void print();
+    std::string toString();
 
     //Sobrecarga de operadores de entrada y salida, para poder hacer cada proyecto flujeable
     void save(std::fstream&out);

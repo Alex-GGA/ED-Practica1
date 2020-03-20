@@ -31,7 +31,7 @@ public:
     bool isFull();
     int sizeOfTheList();
 
-    void sortList(const bool&);
+    void sortList();
 
     void print();
 
