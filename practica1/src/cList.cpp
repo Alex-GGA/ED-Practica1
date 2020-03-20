@@ -53,7 +53,7 @@ int CList::sizeOfTheList(){
 }
 
 //Ordena la lista por medio del método de inserción
-void CList::sortList(const bool& flag){ //Ordena con forme se use la bandera
+void CList::sortList(){
     //Iteradores para recorrer la lista
     CIterator it1;
     CIterator it2;
@@ -62,47 +62,28 @@ void CList::sortList(const bool& flag){ //Ordena con forme se use la bandera
 
     //Inicia el iterador
     it1 = beginList();
-    if(!flag){
 
-        while(it1 != endList()){
-            //En el dato auxiliar se recupera lo que haya en el primer iterador
-            auxData = (IndicePrimario*)it1.pCurrent->data;
-            it2 = it1;
-            /*Verifica y recorre la lista con el segundo iterador hasta que sea el final y el la llave
-            primaria del dato auxiliar sea menor que la llave primaria del segundo iterador*/
-            while(it2 != beginList() &&
-                  auxData->getPrimaryKey() < ((IndicePrimario*)(it2.getPrev()))->getPrimaryKey()){
+    while(it1 != endList()){
+        //En el dato auxiliar se recupera lo que haya en el primer iterador
+        auxData = (IndicePrimario*)it1.pCurrent->data;
+        it2 = it1;
+        /*Verifica y recorre la lista con el segundo iterador hasta que sea el final y el la llave
+        primaria del dato auxiliar sea menor que la llave primaria del segundo iterador*/
+        while(it2 != beginList() &&
+              auxData->getPrimaryKey() < ((IndicePrimario*)(it2.getPrev()))->getPrimaryKey()){
 
-                //Captura en el dato del iterador 2 el dato de su anterior
-                it2.pCurrent->data = it2.getPrev();
-                //Decrementa el segundo iterador
-                --it2;
-            }
-            //Verifica que ambos iteradores sean diferentes
-            if(it1 != it2){
-                //Cambia el dato del iterador 2 al dato auxiliar
-                it2.pCurrent->data = (CSerializable*)auxData;
-            }
-            //Incrementa el priemr iterador
-            ++it1;
+            //Captura en el dato del iterador 2 el dato de su anterior
+            it2.pCurrent->data = it2.getPrev();
+            //Decrementa el segundo iterador
+            --it2;
         }
-
-    }else{
-        //Mismo funcionamiento de ordenamiento por inserción
-        while(it1 != endList()){
-            auxData = (IndicePrimario*)it1.pCurrent->data;
-            it2 = it1;
-            while(it2 != beginList() &&
-                  auxData->getDireccionBytes() < ((IndicePrimario*)(it2.getPrev()))->getDireccionBytes()){
-                it2.pCurrent->data = it2.getPrev();
-                --it2;
-            }
-            if(it1 != it2){
-                it2.pCurrent->data = (CSerializable*)auxData;
-            }
-            ++it1;
+        //Verifica que ambos iteradores sean diferentes
+        if(it1 != it2){
+            //Cambia el dato del iterador 2 al dato auxiliar
+            it2.pCurrent->data = (CSerializable*)auxData;
         }
-
+        //Incrementa el priemr iterador
+        ++it1;
     }
 
 }

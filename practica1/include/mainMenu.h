@@ -22,6 +22,7 @@ private:
     const std::string filePrimaryIndex = "INDICE PRIMARIO.txt";
     const std::string fileSecondaryIndex = "INDICE SECUNDARIO.txt";
     const std::string fileData = "DATOS.txt";
+    const int NEWLINE_SIZE = 2;
     /* Se crea una estructura del tipo enum, para evitar
         los números mágicos y así poder usar una lista de
         constantes para el menú principal*/
@@ -49,7 +50,7 @@ private:
     void insertNewProject();
     void showProjectsByFolio();
     void showProjectsByArea();
-    void readByPrimaryIndex(const CIterator&);
+    std::string readByPrimaryIndex(const CIterator&,std::fstream&);
 
     //Método generador del folio
     std::string Folio(std::string &nombre);

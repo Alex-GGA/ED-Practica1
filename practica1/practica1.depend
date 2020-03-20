@@ -1,27 +1,9 @@
 # depslib dependency file v1.0
-1583295948 source:c:\users\cesar\documents\estructurasdedatos2\practica1\main.cpp
+1584681959 source:c:\users\cesar\documents\estructurasdedatos2\practica1\main.cpp
 	<iostream>
 	"mainMenu.h"
 
-1583298692 c:\users\cesar\documents\estructurasdedatos2\practica1\include\mainmenu.h
-	<iostream>
-	"project.h"
-
-1583292390 source:c:\users\cesar\documents\estructurasdedatos2\practica1\src\project.cpp
-	"project.h"
-
-1583297791 c:\users\cesar\documents\estructurasdedatos2\practica1\include\project.h
-	<iostream>
-	<string>
-
-1583298951 source:c:\users\cesar\documents\estructurasdedatos2\practica1\src\mainmenu.cpp
-	"mainMenu.h"
-
-1584563565 source:c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\main.cpp
-	<iostream>
-	"mainMenu.h"
-
-1584564416 c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\include\mainmenu.h
+1584673631 c:\users\cesar\documents\estructurasdedatos2\practica1\include\mainmenu.h
 	<iostream>
 	<time.h>
 	<fstream>
@@ -32,41 +14,22 @@
 	"cIterator.h"
 	"indicesec.h"
 
-1584570074 c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\include\project.h
+1584646576 c:\users\cesar\documents\estructurasdedatos2\practica1\include\project.h
 	<iostream>
 	<string>
 	<sstream>
 	"cSerializable.h"
 
-1584565666 source:c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\src\citerator.cpp
-	"cIterator.h"
-
-1584565616 c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\include\citerator.h
-	<iostream>
-	"cNode.h"
-	"cSerializable.h"
-
-1584568123 c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\include\cnode.h
-	"cSerializable.h"
-
-1584566078 c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\include\cserializable.h
+1584646574 c:\users\cesar\documents\estructurasdedatos2\practica1\include\cserializable.h
 	<fstream>
 	<iostream>
 	<sstream>
 
-1584568420 source:c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\src\cnode.cpp
-	"cNode.h"
-
-1583950640 source:c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\src\cserializable.cpp
+1584646576 c:\users\cesar\documents\estructurasdedatos2\practica1\include\indiceprimario.h
+	<string>
 	"cSerializable.h"
 
-1584565459 source:c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\src\mainmenu.cpp
-	"mainMenu.h"
-
-1584568063 source:c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\src\clist.cpp
-	"cList.h"
-
-1584567792 c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\include\clist.h
+1584680933 c:\users\cesar\documents\estructurasdedatos2\practica1\include\clist.h
 	<iostream>
 	"cIterator.h"
 	"cNode.h"
@@ -74,20 +37,44 @@
 	"indiceprimario.h"
 	"indicesec.h"
 
-1584568538 c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\include\indiceprimario.h
-	<string>
+1584646572 c:\users\cesar\documents\estructurasdedatos2\practica1\include\citerator.h
+	<iostream>
+	"cNode.h"
 	"cSerializable.h"
 
-1584570031 c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\include\indicesec.h
+1584646574 c:\users\cesar\documents\estructurasdedatos2\practica1\include\cnode.h
+	"cSerializable.h"
+
+1584646576 c:\users\cesar\documents\estructurasdedatos2\practica1\include\indicesec.h
 	"cSerializable.h"
 	<string>
 
-1584570349 source:c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\src\project.cpp
-	"project.h"
+1584646568 source:c:\users\cesar\documents\estructurasdedatos2\practica1\src\citerator.cpp
+	"cIterator.h"
 
-1584570020 source:c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\src\indicesec.cpp
+1584680916 source:c:\users\cesar\documents\estructurasdedatos2\practica1\src\clist.cpp
+	"cList.h"
+
+1584646570 source:c:\users\cesar\documents\estructurasdedatos2\practica1\src\cnode.cpp
+	"cNode.h"
+
+1584646572 source:c:\users\cesar\documents\estructurasdedatos2\practica1\src\cserializable.cpp
+	"cSerializable.h"
+
+1584646572 source:c:\users\cesar\documents\estructurasdedatos2\practica1\src\fd.cpp
+	"fd.h"
+
+1584646574 c:\users\cesar\documents\estructurasdedatos2\practica1\include\fd.h
+
+1584646572 source:c:\users\cesar\documents\estructurasdedatos2\practica1\src\indiceprimario.cpp
+	"indiceprimario.h"
+
+1584646572 source:c:\users\cesar\documents\estructurasdedatos2\practica1\src\indicesec.cpp
 	"indicesec.h"
 
-1584569202 source:c:\users\cesar\documents\estructurasdedatos2\ed2-practica1\practica1\src\indiceprimario.cpp
-	"indiceprimario.h"
+1584673690 source:c:\users\cesar\documents\estructurasdedatos2\practica1\src\project.cpp
+	"project.h"
+
+1584681755 source:c:\users\cesar\documents\estructurasdedatos2\practica1\src\mainmenu.cpp
+	"mainMenu.h"
 
