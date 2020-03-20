@@ -243,8 +243,7 @@ void MainMenu::showProjectsByArea(){
     if(option < 0 || option >= i){
         cout<<"Proyecto no encontrado..."<<endl;
     }else{
-        fstream lecturaIndice;
-        lecturaIndice.open(fileData);
+
         cout<<"Proyectos del: "<<areas[option-1]<<": "<<endl<<endl;
         //Coloca el iterador en la opcion
         it = indiceSecundario.beginList();
@@ -258,13 +257,15 @@ void MainMenu::showProjectsByArea(){
                 //En caso de encontrar, saca un proyecto
                 if(((IndiceSec*)(it.readContent()))->getReferencia(k)
                    == ((IndicePrimario*)(it2.readContent()))->getPrimaryKey()){
+                       fstream lecturaIndice;
+                        lecturaIndice.open(fileData);
                         cout<<"Proyecto No. "<<k+1<<endl;
                         cout<<readByPrimaryIndex(it2, lecturaIndice);
                         cout<<endl;
+                        lecturaIndice.close();
                 }
             }
         }
-        lecturaIndice.close();
     }
 }
 
@@ -315,7 +316,6 @@ string MainMenu::readByPrimaryIndex(const CIterator& auxIt,fstream& lecturaIndic
 
     //Colocamos el cursor en el archivo desde la direccion que tiene el iterador
     lecturaIndice.seekp(((IndicePrimario*)(it.readContent()))->getDireccionBytes());
-
     //Lee desde el archivo, almacena en la cadena caracteres la cantidad de pesoBytes
     lecturaIndice.read(auxStr, pesoBytes);
     //Conviente la cadena de caracteres a una cadena normal

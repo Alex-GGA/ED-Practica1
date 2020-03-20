@@ -102,7 +102,7 @@ string Project::toString(){
         folio[0] = ' ';
     }
     string strProject;
-    char* auxSTR = new char[8];
+    char* auxSTR = new char[10];
     sprintf(auxSTR, "%0.2f", economicAmount);
     strProject += "Folio: " + folio + "\n"
                 + "Nombre: " + name + "\n"
