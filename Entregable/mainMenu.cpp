@@ -34,32 +34,11 @@ MainMenu::MainMenu() : counter(0) {
     }
     /*El contador ira en aumento, dando un recorrido por eel indice primario para poder conseguir
         la ultima posicion del archivo*/
-    CIterator primaryIndexIt;
-    /*indicePrimarioL.sortList(true);
-    char* auxStr =  new char[pesoBytes]; //Cadena de caracteres para capturar el proyecto
-    string auxStr2;*/
-    fstream lecturaInicial(fileData, fstream::in);
-    for(primaryIndexIt = indicePrimarioL.beginList();
+    for(CIterator primaryIndexIt = indicePrimarioL.beginList();
         primaryIndexIt != indicePrimarioL.endList();
         ++primaryIndexIt){
-
-            if(indicePrimarioL.sizeOfTheList() < 3){
-                /* Si la lista solo tiene un elemento, se abre el archivo de datos y se
-                recupera el unico regustro para conseguir su longitud y asi poderla sumar
-                al contador y sumarle los bytes del salto de linea*/
-                string longOfTheFirstData;
-                getline(lecturaInicial, longOfTheFirstData);
-                counter += longOfTheFirstData.size() + NEWLINE_SIZE;
-
-            }else{
-                counter += ((IndicePrimario*)(primaryIndexIt.readContent()))->getDireccionBytes();
-            }
-
+            counter += ((IndicePrimario*)(primaryIndexIt.readContent()))->getDireccionBytes();
         }
-    lecturaInicial.close();
-    /*if(counter != DEFAULT_POS){
-        counter += NEWLINE_SIZE;
-    }*/
 }
 
 MainMenu::~MainMenu(){
@@ -160,11 +139,11 @@ void MainMenu::insertNewProject(){
     if(indicePrimarioL.isEmpty()){
         newIndice->setDireccionBytes(0);
         //Longitud sacada del proyecto incluyendo el delimitador, restando 6 bytes por el peso extra del delimitador
-        counter += newProject.toFile().size() + NEWLINE_SIZE;
+        counter += newProject.toFile().size()-6;
     }else{
         //Se establece el contador desde la ultima posicion
         newIndice->setDireccionBytes(counter);
-        counter += newProject.toFile().size() + NEWLINE_SIZE; //Almacena los 18 bytes de todos los caracteres mas dos bytes del salto de linea
+        counter += newProject.toFile().size()-6;
     }
 
     //Recorrido para ingresar al indice secundario
@@ -183,7 +162,7 @@ void MainMenu::insertNewProject(){
     //Agrega el objeto de tipo IndicePrimario a la lista
     indicePrimarioL.insertAtTheStart(newIndice);
     //Ordenara la lista de manera descendente con forme a las llaves primarias
-    indicePrimarioL.sortList();
+    indicePrimarioL.sortList(false);
     //Metodo que guarda el proyecto al archivo
     GuardarProyecto(newProject,*newIndice);
     cout<<endl<<endl<<"Nuevo proyecto agregado con exito :)"<<endl;
@@ -215,11 +194,8 @@ void MainMenu::showProjectsByFolio(){
     }else{
         cout<<endl<<"Proyecto encontrado: ";
         cout<<endl<<endl;
-        fstream lecturaIndice;
-        lecturaIndice.open(fileData);
         //Método que muestra el proyecto que se haya encontrado
-        cout<<readByPrimaryIndex(it, lecturaIndice);
-        lecturaIndice.close();
+        readByPrimaryIndex(it);
         cout<<endl<<endl;
     }
 
@@ -243,8 +219,6 @@ void MainMenu::showProjectsByArea(){
     if(option < 0 || option >= i){
         cout<<"Proyecto no encontrado..."<<endl;
     }else{
-        fstream lecturaIndice;
-        lecturaIndice.open(fileData);
         cout<<"Proyectos del: "<<areas[option-1]<<": "<<endl<<endl;
         //Coloca el iterador en la opcion
         it = indiceSecundario.beginList();
@@ -259,12 +233,11 @@ void MainMenu::showProjectsByArea(){
                 if(((IndiceSec*)(it.readContent()))->getReferencia(k)
                    == ((IndicePrimario*)(it2.readContent()))->getPrimaryKey()){
                         cout<<"Proyecto No. "<<k+1<<endl;
-                        cout<<readByPrimaryIndex(it2, lecturaIndice);
+                        readByPrimaryIndex(it2);
                         cout<<endl;
                 }
             }
         }
-        lecturaIndice.close();
     }
 }
 
@@ -287,34 +260,39 @@ void MainMenu::GuardarProyecto(Project &nuevo_proyecto,IndicePrimario &newIndice
     archivo_proyecto.close();
 }
 
-string MainMenu::readByPrimaryIndex(const CIterator& auxIt,fstream& lecturaIndice){
-    //Datos auxiliares para poder iterar la lista, saber el peso de cada registro y poder mostrarlo
+void MainMenu::readByPrimaryIndex(const CIterator& auxIt){
+
+    fstream lecturaIndice;
     CIterator it;
     it = auxIt;
     int pesoBytes(0);
+    //Solo abre el archivo de los datos
+    lecturaIndice.open(fileData);
+
+    //Ordena la lista de manera ascendete con forme a las direcciones
+    indicePrimarioL.sortList(true);
+
+    //Si estamos en el ultimo elementod e la lista, solo va a restar el contador a la direccion del elemento buscado
+    if(it.getNext() == indicePrimarioL.endList().readContent()){
+        pesoBytes = counter - ((IndicePrimario*)(it.readContent()))->getDireccionBytes();
+
+    }else{
+        //Si estamos en cualquier otra posicion, se resta la direccion del siguiente a la direccion actual
+        pesoBytes = ((IndicePrimario*)(it.getNext()))->getDireccionBytes()
+                        - ((IndicePrimario*)(it.readContent()))->getDireccionBytes();
+    } //Esto para poder saber el peso en bytes de cada proyecto a consultar
+
+    char* auxStr =  new char[pesoBytes]; //Cadena de caracteres para capturar el proyecto
     string auxStr2;
 
     //Verifica que el proyecto a buscar sea el primero
     if(((IndicePrimario*)(it.readContent()))->getDireccionBytes() == DEFAULT_POS){
-        /* Si es la pirmera posicion se realiza una consulta para poder conseguir el primer registro
-            y asi poder tener su longitud. A esa longitud le añadimos el tamaño del salto de linea, para
-            que el puntero se coloque bien
-        */
-        fstream littleQuery(fileData, fstream::in);
-        string longOfTheFirstData;
-        getline(littleQuery, longOfTheFirstData);
-        pesoBytes = longOfTheFirstData.size() + NEWLINE_SIZE;
-
-        littleQuery.close();
+            //Si es el primero, coloca el puntero en la direccion del proyecto buscado
+        lecturaIndice.seekp(((IndicePrimario*)(it.readContent()))->getDireccionBytes());
     }else{
-        //En caso contrario, le restamos al contador lo que tenga el dato del iterador
-        pesoBytes = counter - ((IndicePrimario*)(it.readContent()))->getDireccionBytes();
+        //SI no lo es, entonces Suma 1 a la direccion
+        lecturaIndice.seekp(((IndicePrimario*)(it.readContent()))->getDireccionBytes()+1);
     }
-
-    char* auxStr =  new char[pesoBytes]; //Cadena de caracteres para capturar el proyecto
-
-    //Colocamos el cursor en el archivo desde la direccion que tiene el iterador
-    lecturaIndice.seekp(((IndicePrimario*)(it.readContent()))->getDireccionBytes());
 
     //Lee desde el archivo, almacena en la cadena caracteres la cantidad de pesoBytes
     lecturaIndice.read(auxStr, pesoBytes);
@@ -322,14 +300,15 @@ string MainMenu::readByPrimaryIndex(const CIterator& auxIt,fstream& lecturaIndic
     auxStr2 = auxStr;
     //Crea un proyecto auxiliar para poder mostrar su contenido recuperado
     Project auxProject(auxStr2);
-    //Regresa una cadena para poderla imprimir en su respectiva consulta
-    return auxProject.toString();
+    //Imprime sus datos
+    auxProject.print();
+    lecturaIndice.close();
 }
 
 
 void MainMenu::saveIndex(){
     //Ordenamiento final, solo para asegurar de que guardara el archivo ordenado con forme a la llave primaria
-    indicePrimarioL.sortList();
+    indicePrimarioL.sortList(false);
     //Guarda en el archivo el indice primario
     fstream archivoIndiceP(filePrimaryIndex, fstream::out);
     //Identificador para indicarle a la lista que al momento de cargar, cargara un indice primario
