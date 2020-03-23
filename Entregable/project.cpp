@@ -10,6 +10,7 @@ Project::Project(const string& ss){
     stringstream auxSS;
     auxSS << ss;
     string auxStr;
+
     //Se leen lineas hasta el delimitador y se almacenan en cada campo respectivo desde un stringstream
     getline(auxSS, folio, FIELD_DELIMITER);
     getline(auxSS, name, FIELD_DELIMITER);
@@ -77,15 +78,17 @@ string Project::getResponsible(){
 //Devuelve una cadena de los datos del proyecto, incluyendo el delimitador
 string Project::toFile(){
     string ss;
+    char* auxSTR = new char[8];
     //El delimitador pesa 3 bytes
+    sprintf(auxSTR, "%0.2f", economicAmount);
     ss = folio + "♣" + name + "♣" + area + "♣"
             + speciality + "♣" +
-            to_string(economicAmount) + "♣" + responsible + "♣";
+            auxSTR + "♣" + responsible + "♣";
     return ss;
 }
 
 //Imprime el proyecto sacando cada campo
-void Project::print(){
+string Project::toString(){
     for(int i(0); i < 2; i++){
         //Elimina la basura generada del delimitador
         folio.pop_back();
@@ -98,12 +101,17 @@ void Project::print(){
     if(folio[0] == '\n'){
         folio[0] = ' ';
     }
-    cout<<"Folio: "<<folio<<endl
-        <<"Nombre: "<<name<<endl
-        <<"Area: "<<area<<endl
-        <<"Especialidad: "<<speciality<<endl
-        <<"Monto Economico: "<<to_string(economicAmount)<<endl
-        <<"Responsable: "<<responsible<<endl;
+    string strProject;
+    char* auxSTR = new char[10];
+    sprintf(auxSTR, "%0.2f", economicAmount);
+    strProject += "Folio: " + folio + "\n"
+                + "Nombre: " + name + "\n"
+                + "Area: " + area + "\n"
+                + "Especialidad: " + speciality + "\n"
+                + "Monto Economico: " + auxSTR + "\n"
+                + "Responsable: " + responsible + "\n";
+
+    return strProject;
 }
 
 void Project::save(std::fstream& out){
@@ -115,12 +123,14 @@ void Project::save(std::fstream& out){
         por medio del getter, para poder ingresarlos al archivo con un fstream,
         añadiendo su delimitador. Esto es logrado gracias a la herencia de la clase CSerializable
     */
+    char* auxSTR = new char[8];
+    sprintf(auxSTR, "%0.2f", economicAmount);
 
     out<<getFolio()<< "♣"
           <<getName()<<"♣"
           <<getArea()<<"♣"
           <<getSpeciality()<<"♣"
-          <<getEconomicAmount()<<"♣"
+          <<auxSTR<<"♣"
          <<getResponsible()<<"♣"<<endl;
 }
 
